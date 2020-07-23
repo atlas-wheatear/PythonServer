@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from threading import Thread
 
 app = Flask(__name__)
 
@@ -11,5 +12,12 @@ def hello():
     count += 1
     return template
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+def run_app():
+    app.run(host="0.0.0.0")
+
+def create_app():
+    Thread(target="run_app").run()
+    return app
+
+if __name__ == "main":
+    create_app()
