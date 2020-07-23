@@ -6,6 +6,6 @@ COPY requirements/production.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY src/ .
+COPY pythonserver/ .
 
-CMD python app.py
+CMD python -m server

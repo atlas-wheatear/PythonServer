@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
-import pythonserver.server.main as server
-from flask import Flask
+import pythonserver.server as server
 from multiprocessing import Process
 
 def create_test_app():
