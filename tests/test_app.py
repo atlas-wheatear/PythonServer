@@ -2,6 +2,12 @@ import pytest
 from selenium import webdriver
 import pythonserver.server.main as server
 from flask import Flask
+from multiprocessing import Process
+
+def create_test_app():
+    app_process = Process(target=server.run_app)
+    app_process.start()
+    return app_process
 
 # firefox fixture
 @pytest.fixture(scope="class")
@@ -14,7 +20,7 @@ def gecko_driver_init(request):
 # python-server fixture
 @pytest.fixture(scope="class")
 def server_init(request):
-    app_process = server.create_test_app()
+    app_process = create_test_app()
     yield
     app_process.terminate()
     app_process.join()
