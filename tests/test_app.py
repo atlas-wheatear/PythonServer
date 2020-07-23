@@ -14,11 +14,13 @@ def gecko_driver_init(request):
 # python-server fixture
 @pytest.fixture(scope="class")
 def server_init(request):
-    app = server.create_app()
-    request.cls.driver = app
-    
+    app_process = server.create_test_app()
+    yield
+    app_process.terminate()
+    app_process.join()
 
-@pytest.mark.usefixtures("gecko_driver_init")
+
+@pytest.mark.usefixtures("gecko_driver_init", "server_init")
 class Test_App:
     def test_hello(self):
         return True

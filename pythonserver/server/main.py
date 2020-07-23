@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from threading import Thread
+from multiprocessing import Process
 
 app = Flask(__name__)
 
@@ -15,9 +15,11 @@ def hello():
 def run_app():
     app.run(host="0.0.0.0")
 
-def create_app():
-    Thread(target="run_app").run()
-    return app
+# this should be in the test package, somehow!
+def create_test_app():
+    app_process = Process(target=run_app)
+    app_process.start()
+    return app_process
 
 if __name__ == "main":
-    create_app()
+    run_app()
