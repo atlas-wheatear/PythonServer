@@ -2,7 +2,8 @@ import pytest
 from selenium import webdriver
 import pythonserver.server as server
 from multiprocessing import Process
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as Chrome_Options
+from selenium.webdriver.firefox.options import Options as Firefox_Options
 
 def create_test_app():
     app_process = Process(target=server.run_app)
@@ -27,8 +28,10 @@ def server_init():
 # firefox fixture
 @pytest.fixture(scope="class")
 def firefox_init(request):
+    options = Firefox_Options()
+    options.headless = True
     print("Running firefox.")
-    driver = webdriver.Firefox()
+    driver = webdriver.Firefox(options=options)
     request.cls.firefox_driver = driver
     yield
     driver.close()
@@ -36,14 +39,14 @@ def firefox_init(request):
 # chrome fixture
 @pytest.fixture(scope="class")
 def chrome_init(request):
-    chrome_options = Options()
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--remote-debugging-port=9222")
-    chrome_options.add_argument("--disable-dev-shm-usage")
+    options = Chrome_Options()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--disable-dev-shm-usage")
     print("Running chrome.")
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(options=options)
     request.cls.chrome_driver = driver
     yield
     driver.close()
