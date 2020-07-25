@@ -8,24 +8,32 @@ def create_test_app():
     app_process.start()
     return app_process
 
-# firefox fixture
-@pytest.fixture(scope="class")
-def gecko_driver_init(request):
-    gecko_driver = webdriver.Firefox()
-    request.cls.driver = gecko_driver
-    yield
-    gecko_driver.close()
+class Server_Driver():
+    def __init__(self):
+        self.app_process = create_test_app()
+    def terminate(self):
+        self.app_process.terminate()
+        self.app_process.join()
 
 # python-server fixture
-@pytest.fixture(scope="class")
-def server_init(request):
-    app_process = create_test_app()
+@pytest.fixture(scope="class", autouse=True)
+def server_init():
+    print("Running flask server.")
+    server_driver = Server_Driver()
     yield
-    app_process.terminate()
-    app_process.join()
+    server_driver.terminate()
 
+# firefox fixture
+@pytest.fixture(scope="class")
+def browser_init(request):
+    print("Running firefox.")
+    driver = webdriver.Firefox()
+    request.cls.driver = driver
+    yield
+    driver.close()
 
-@pytest.mark.usefixtures("gecko_driver_init", "server_init")
-class Test_App:
+@pytest.mark.usefixtures("browser_init")
+class Test_App():
     def test_hello(self):
+        self.driver.get("http://localhost:5000")
         return True
