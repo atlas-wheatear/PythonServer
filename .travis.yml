@@ -1,6 +1,7 @@
 language: python
 python:
   - 3.8
+dist: bionic
 services:
   - docker
 env:
@@ -8,11 +9,16 @@ env:
     - MOZ_HEADLESS=1
 addons:
   firefox: latest
+  chrome: stable
 before_install:
   - docker build -t python-server:latest .
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 install:
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
   - tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
   - export PATH=$(pwd)/geckodriver:$PATH
+  - wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d chromedriver
+  - export PATH=$(pwd)/chromedriver:$PATH
   - pip install -r requirements/development.txt
 script: pytest
