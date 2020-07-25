@@ -25,15 +25,27 @@ def server_init():
 
 # firefox fixture
 @pytest.fixture(scope="class")
-def browser_init(request):
+def firefox_init(request):
     print("Running firefox.")
     driver = webdriver.Firefox()
-    request.cls.driver = driver
+    request.cls.firefox_driver = driver
     yield
     driver.close()
 
-@pytest.mark.usefixtures("browser_init")
-class Test_App():
+# chrome fixture
+@pytest.fixture(scope="class")
+def chrome_init(request):
+    print("Running chrome.")
+    driver = webdriver.Chrome()
+    request.cls.chrome_driver = driver
+    yield
+    driver.close()
+
+@pytest.mark.usefixtures("firefox_init", "chrome_init")
+class Test_Server():
+    def get(self, url: str):
+        for driver in (self.firefox_driver, self.chrome_driver):
+            driver.get(url)
     def test_hello(self):
-        self.driver.get("http://localhost:5000")
+        self.get("http://localhost:5000")
         return True
