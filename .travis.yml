@@ -3,8 +3,16 @@ python:
   - 3.8
 services:
   - docker
+env:
+  global:
+    - MOZ_HEADLESS=1
+addons:
+  firefox: latest
 before_install:
   - docker build -t python-server:latest .
 install:
-  - pip install -r requirements.txt
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+  - tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
+  - export PATH=$(pwd)/geckodriver:$PATH
+  - pip install -r requirements/development.txt
 script: pytest

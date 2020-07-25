@@ -1,11 +1,11 @@
-FROM python:3
+FROM python:3.8
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+COPY requirements/production.txt requirements.txt
 
-COPY . .
+RUN pip install -r requirements.txt
 
-RUN pip install -r ./requirements.txt
+COPY pythonserver/ .
 
-CMD python app.py
+CMD python -m server
