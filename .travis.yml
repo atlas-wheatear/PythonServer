@@ -8,6 +8,9 @@ env:
     - MOZ_HEADLESS=1
 addons:
   firefox: latest
+  apt:
+    packages:
+      - firefox-geckodriver
 before_install:
   - docker build -t python-server:latest .
 install:
