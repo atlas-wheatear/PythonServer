@@ -4,6 +4,11 @@ import pythonserver.server as server
 from multiprocessing import Process
 from selenium.webdriver.chrome.options import Options as Chrome_Options
 from selenium.webdriver.firefox.options import Options as Firefox_Options
+from selenium.webdriver.common.keys import Keys
+import random
+import string
+
+server_root = "http://localhost:5000"
 
 def create_test_app():
     app_process = Process(target=server.run_app)
@@ -56,6 +61,18 @@ class Test_Server():
     def get(self, url: str):
         for driver in (self.firefox_driver, self.chrome_driver):
             driver.get(url)
+    
     def test_hello(self):
-        self.get("http://localhost:5000")
-        return True
+        self.get(server_root)
+    
+    def test_update_word(self):
+        for driver in (self.firefox_driver, self.chrome_driver):
+            driver.get(server_root)
+            word_form = driver.find_element_by_name("word-of-the-day")
+            test_string = "".join(random.choices(string.ascii_letters, k=random.randint(1, 20)))
+            word_form.send_keys(test_string)
+            word_form.submit()
+            driver.get(server_root)
+            word_div = driver.find_element_by_id("word-container")
+            assert word_div.text == "The word of the day is {}!".format(test_string)
+
