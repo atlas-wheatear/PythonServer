@@ -15,8 +15,9 @@ before_install:
   - echo "POSTGRES_PASSWORD=insecure_password" >> postgres.env
   - cp config.toml.dist config.toml
   - echo $'POSTGRES_PASSWORD="insecure_password"' >> config.toml
-  - docker-compose build
 install:
+  - docker-compose build
+before_script:
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
   - mkdir geckodriver
   - tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
