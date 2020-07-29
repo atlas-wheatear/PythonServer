@@ -11,6 +11,10 @@ addons:
   firefox: latest
   chrome: stable
 before_install:
+  - cp postgres.env.dist postgres.env
+  - echo "POSTGRES_PASSWORD=insecure_password" >> postgres.env
+  - cp config.toml.dist config.toml
+  - echo $'POSTGRES_PASSWORD="insecure_password"' >> config.toml
   - docker-compose build
 install:
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
