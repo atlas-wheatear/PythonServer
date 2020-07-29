@@ -12,15 +12,11 @@ The chrome and firefox browsers are required, alongisde their respective webdriv
 
 ## Configuring
 
-Copy the contents of the file **postgres.env.dist** from the **config** directory into a file (in the root directory) named **postgres.env**, e.g. on _linux_:
+Copy the contents of the file **config.toml.dist** from the root directory into a file named **config.toml**, e.g. on _linux_:
 
-`cp configs/postgres.env.dist postgres.env`
+`cp coonfig.toml.dist config.toml`
 
-Uncomment the _POSTGRES\_PASSWORD_ entry and edit it to contain a secure password, without any spaces and without enclosing in quotation marks. Do the same into **config.toml** from **config.toml.dist**:
-
-`cp configs/config.toml.dist config.toml`
-
-Uncomment and edit the _POSTGRES\_PASSWORD_ entry to be the _same_ password_ as before. This config duplication is far from ideal, and will be _refactored_ in future.
+Uncomment the _POSTGRES\_PASSWORD_ entry and edit it to contain a secure password, without any spaces, and enclosed in quotation marks.
 
 ## Testing
 
@@ -30,4 +26,10 @@ Run the following command from the root directory:
 
 ## Building and Running
 
-`docker-compose up`
+Run this command on Windows:
+
+`.\run.bat`
+
+And on Linux/MacOS:
+
+`./run.sh`
