@@ -1,12 +1,14 @@
 import pytest
 from selenium import webdriver
 import pythonserver.server as server
+import pythonserver.models as models
 from multiprocessing import Process
 from selenium.webdriver.chrome.options import Options as Chrome_Options
 from selenium.webdriver.firefox.options import Options as Firefox_Options
 from selenium.webdriver.common.keys import Keys
 import random
 import string
+from mock import patch
 
 server_root = "http://localhost:5000"
 
@@ -15,9 +17,17 @@ def create_test_app():
     app_process.start()
     return app_process
 
+def Mock_Model():
+    pass
+
 class Server_Driver():
+    @patch('models.Model')
+    def patch_model(self, Mock_Model):
+        pass
+
     def __init__(self):
         self.app_process = create_test_app()
+    
     def terminate(self):
         self.app_process.terminate()
         self.app_process.join()
@@ -31,7 +41,7 @@ def server_init():
     server_driver.terminate()
 
 # firefox fixture
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="class", autouse=True)
 def firefox_init(request):
     options = Firefox_Options()
     options.headless = True
@@ -42,7 +52,7 @@ def firefox_init(request):
     driver.close()
 
 # chrome fixture
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="class", autouse=True)
 def chrome_init(request):
     options = Chrome_Options()
     options.add_argument("--no-sandbox")
@@ -56,7 +66,6 @@ def chrome_init(request):
     yield
     driver.close()
 
-@pytest.mark.usefixtures("firefox_init", "chrome_init")
 class Test_Server():
     def get(self, url: str):
         for driver in (self.firefox_driver, self.chrome_driver):

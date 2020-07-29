@@ -3,6 +3,8 @@ services:
   web:
     container_name: "python-server"
     build: .
+    depends_on: 
+      - database
     ports:
       - "5000:5000"
   database:
