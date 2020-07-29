@@ -14,7 +14,7 @@ The chrome and firefox browsers are required, alongisde their respective webdriv
 
 Copy the contents of the file **config.toml.dist** from the root directory into a file named **config.toml**, e.g. on _linux_:
 
-`cp coonfig.toml.dist config.toml`
+`cp config.toml.dist config.toml`
 
 Uncomment the _POSTGRES\_PASSWORD_ entry and edit it to contain a secure password, without any spaces, and enclosed in quotation marks.
 
