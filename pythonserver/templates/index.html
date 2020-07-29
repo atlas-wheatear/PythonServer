@@ -7,6 +7,18 @@
 
     <body>
         <h1>Good day, oblate spheroid!</h1>
-        <h4>You are viewer number {{ viewer_number }}!</h4>
+        
+        <div id="word-container">
+            {% if word_of_the_day %}
+            <h4>The word of the day is {{ word_of_the_day }}!</h4>
+            {% else %}
+            <h4>Please enter a word of the day below!</h4>
+            {% endif %}
+        </div>
     </body>
+
+    <form method="POST">
+        <input name="word-of-the-day">
+        <input type="submit">
+    </form>
 </html>

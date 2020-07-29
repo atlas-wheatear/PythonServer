@@ -6,6 +6,10 @@ COPY requirements/production.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY pythonserver/ .
+COPY config.toml .
 
-CMD python -m server
+EXPOSE 5000
+
+COPY pythonserver/ pythonserver/
+
+CMD python -um pythonserver.server
