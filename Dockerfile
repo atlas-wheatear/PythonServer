@@ -12,4 +12,4 @@ EXPOSE 5000
 
 COPY pythonserver/ pythonserver/
 
-CMD python -m pythonserver.server
+CMD python -um pythonserver.server

@@ -11,7 +11,7 @@ class Model():
         connection = psycopg2.connect(
             user = config["POSTGRES_USER"],
             host = config["POSTGRES_HOSTNAME"],
-            port = "5432",
+            port = str(config["POSTGRES_PORT"]),
             dbname = config["POSTGRES_DB"],
             password = config["POSTGRES_PASSWORD"]
         )
@@ -27,7 +27,7 @@ class Model():
         self.connection = None
         try:    
             self.connection = self.connect(config)
-            self.cursor = self.connection.cursor
+            self.cursor = self.connection.cursor()
         except (psycopg2.Error) as error:
             print("There was an error with postgresql.", error)
             self.close()
@@ -35,3 +35,11 @@ class Model():
     
     def __del__(self):
         self.close()
+    
+    def add_word(self, word: str):
+        print(word)
+        # vulnerable to injection exploits
+        try:
+            self.cursor.execute("INSERT INTO words (word) VALUES (%s)", (word,))
+        except Exception as sqlException:
+            print("There was an exception from postgres!", sqlException)

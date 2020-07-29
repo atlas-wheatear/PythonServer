@@ -7,9 +7,13 @@ services:
       - database
     ports:
       - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=0
   database:
     container_name: "postgres"
     image: "postgres"
+    volumes:
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
     env_file:
