@@ -1,0 +1,6 @@
+# change this to match postgres.env
+POSTGRES_PASSWORD = ""
+
+POSTGRES_USER = "server"
+POSTGRES_DB = "server_db"
+POSTGRES_HOSTNAME = "postgres"

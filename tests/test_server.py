@@ -75,4 +75,3 @@ class Test_Server():
             driver.get(server_root)
             word_div = driver.find_element_by_id("word-container")
             assert word_div.text == "The word of the day is {}!".format(test_string)
-

@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
+from pythonserver.models import Model
 
 app = Flask(__name__)
-
 word_of_the_day = ""
+model = Model()
 
 @app.route("/")
 def hello():
