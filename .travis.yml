@@ -11,9 +11,9 @@ addons:
   firefox: latest
   chrome: stable
 before_install:
-  - cp postgres.env.dist postgres.env
+  - cp configs/postgres.env.dist postgres.env
   - echo "POSTGRES_PASSWORD=insecure_password" >> postgres.env
-  - cp config.toml.dist config.toml
+  - cp configs/config.toml.dist config.toml
   - echo $'POSTGRES_PASSWORD="insecure_password"' >> config.toml
 install:
   - docker-compose build

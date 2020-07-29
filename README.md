@@ -12,13 +12,13 @@ The chrome and firefox browsers are required, alongisde their respective webdriv
 
 ## Configuring
 
-Copy the contents of **postgres.env.dist** into **postgres.env**, e.g. on _linux_:
+Copy the contents of the file **postgres.env.dist** from the **config** directory into a file (in the root directory) named **postgres.env**, e.g. on _linux_:
 
-`cp postgres.env.dist postgres.env`
+`cp configs/postgres.env.dist postgres.env`
 
 Edit the _POSTGRES\_PASSWORD_ entry to a secure password, without any spaces and without enclosing in quotation marks. Do for the same into **config.toml** from **config.toml.dist**:
 
-`cp config.toml.dist config.toml`
+`cp configs/config.toml.dist config.toml`
 
 Edit the _POSTGRES\_PASSWORD_ entry to be the _same_ password_ as before. This config duplication is far from ideal, and will be refactored in future.
 
