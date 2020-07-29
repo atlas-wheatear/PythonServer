@@ -26,7 +26,7 @@ Edit the _POSTGRES\_PASSWORD_ entry to be the _same_ password_ as before. This c
 
 Run the following command from the root directory:
 
-`pytest --import-mode=importlib`
+`pytest`
 
 ## Building and Running
 
