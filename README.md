@@ -12,9 +12,9 @@ The chrome and firefox browsers are required, alongisde their respective webdriv
 
 ## Configuring
 
-Copy the contents of the file **postgres.env.dist** from the root directory into a file named **postgres.env**, e.g. on _linux_:
+Copy the contents of the file **postgres.env.dist** from the **database** directory into a file named **postgres.env** within the _same_ directory, e.g. on _linux_:
 
-`cp postgres.env.dist postgres.env`
+`cp database/postgres.env.dist database/postgres.env`
 
 Uncomment the _POSTGRES\_PASSWORD_ entry and edit it to contain a secure password, without any spaces and without enclosing in quotation marks.
 
