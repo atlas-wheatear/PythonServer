@@ -34,7 +34,6 @@ class Model():
         self.close()
     
     def add_word(self, word: str):
-        print(word)
         # vulnerable to injection exploits
         try:
             self.cursor.execute("INSERT INTO words (word) VALUES (%s)", (word,))
