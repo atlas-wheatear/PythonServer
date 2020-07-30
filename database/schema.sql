@@ -1,5 +1,5 @@
 CREATE TABLE words (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     word VARCHAR (20) UNIQUE,
-    inserted TIMESTAMP DEFAULT current_timestamp
+    inserted TIMESTAMP DEFAULT now()
 )

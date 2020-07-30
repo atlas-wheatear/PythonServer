@@ -12,7 +12,7 @@ from mock import patch
 
 server_root = "http://localhost:5000"
 
-def Mock_Model():
+class Mock_Model():
     pass
 
 class Server_Driver():
