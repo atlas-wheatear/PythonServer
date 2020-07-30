@@ -6,10 +6,10 @@ COPY requirements/production.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY config.toml .
-
 EXPOSE 5000
 
 COPY pythonserver/ pythonserver/
+
+COPY database/postgres.env pythonserver/.env
 
 CMD python -um pythonserver.server
