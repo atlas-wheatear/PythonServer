@@ -1,19 +1,16 @@
-import toml
+from dotenv import load_dotenv
 import psycopg2
 import sys
+import os
 
-class Model():
-    def load_config(self):
-        config = toml.load("config.toml")
-        return config
-    
-    def connect(self, config):
+class Model():    
+    def connect(self):
         connection = psycopg2.connect(
-            user = config["POSTGRES_USER"],
-            host = config["POSTGRES_HOSTNAME"],
-            port = str(config["POSTGRES_PORT"]),
-            dbname = config["POSTGRES_DB"],
-            password = config["POSTGRES_PASSWORD"]
+            user = os.getenv("POSTGRES_USER"),
+            host = os.getenv("POSTGRES_HOSTNAME"),
+            port = 5432,
+            dbname = os.getenv("POSTGRES_DB"),
+            password = os.getenv("POSTGRES_PASSWORD")
         )
         return connection
     
@@ -23,10 +20,10 @@ class Model():
             self.connection.close()
 
     def __init__(self):
-        config = self.load_config()
+        load_dotenv()
         self.connection = None
         try:    
-            self.connection = self.connect(config)
+            self.connection = self.connect()
             self.cursor = self.connection.cursor()
         except (psycopg2.Error) as error:
             print("There was an error with postgresql.", error)

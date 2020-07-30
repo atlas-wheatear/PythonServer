@@ -26,10 +26,10 @@ Run the following command from the root directory:
 
 ## Building and Running
 
-Run this command on Windows:
+To build:
 
-`.\run.bat`
+`docker-compose build`
 
-And on Linux/MacOS:
+To run:
 
-`./run.sh`
+`docker-compose up`

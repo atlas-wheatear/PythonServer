@@ -17,4 +17,4 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - postgres.env
+      - ./database/postgres.env
